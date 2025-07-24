@@ -17,11 +17,11 @@ export function DataLegend() {
             Alert
           </li>
           <li className="flex items-center gap-2">
-            <span className="inline-block size-2 rounded-full bg-red-500" />
+            <span className="inline-block size-2 rounded-full bg-orange-500" />
             Alarm
           </li>
           <li className="flex items-center gap-2">
-            <span className="inline-block size-2 rounded-full bg-purple-500" />
+            <span className="inline-block size-2 rounded-full bg-red-500" />
             Critical
           </li>
           <li className="flex items-start gap-2">
