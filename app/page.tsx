@@ -3,8 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { WaterLevelChart } from '@/components/water-level-chart';
 import { getWaterLevelData } from '@/services/pagasa';
 import { WaterLevelType } from '@/services/types';
-import { GlassWaterIcon } from 'lucide-react';
-import Link from 'next/link';
+import Image from 'next/image';
 
 export default async function Home({
   searchParams,
@@ -25,26 +24,25 @@ export default async function Home({
   return (
     <>
       <header className="border-b">
-        <div className="container mx-auto max-w-xl px-4 py-4 flex items-center justify-between">
-          <Link href="/">
-            <h1 className="font-bold text-2xl flex items-center gap-2">
-              <GlassWaterIcon
-                className="size-6 text-blue-500"
-                strokeWidth={2.5}
-              />{' '}
-              FloodLine PH
-            </h1>
-          </Link>
+        <div className="container mx-auto max-w-xl px-4 py-4">
+          <div className="flex flex-col w-full items-center">
+            <Image
+              unoptimized
+              src="/icons/logo.png"
+              alt="FloodLine PH"
+              width={80}
+              height={10}
+              className="object-contain"
+            />
+            <h1 className="font-bold text-2xl">FloodLine PH</h1>
+          </div>
         </div>
       </header>
       <main className="container mx-auto max-w-xl px-4 py-6 space-y-6">
-        <div className="text-center">
-          <h1 className="font-bold text-2xl">FloodLine PH</h1>
-          <p className="text-sm text-muted-foreground">
-            Visual representation of PAGASA&apos;s water level data for major
-            dams and rivers in the Philippines.
-          </p>
-        </div>
+        <p className="text-muted-foreground">
+          Visual representation of PAGASA&apos;s water level data for major dams
+          and rivers in the Philippines.
+        </p>
 
         <StatusFilter
           currentStatusFilter={queryParams.status as WaterLevelType['status']}
@@ -59,7 +57,7 @@ export default async function Home({
         </ul>
 
         {/* legend */}
-        <Card className="fixed py-2 top-20 gap-2 right-2 w-40 hidden md:flex">
+        <Card className="fixed py-2 top-24 gap-2 right-2 w-40 hidden md:flex">
           <CardHeader className="border-b px-3 [.border-b]:pb-2">
             <CardTitle className="text-sm">Legend</CardTitle>
           </CardHeader>
