@@ -33,7 +33,7 @@ export function StatusFilter({
       <TabsList className="w-full">
         <TabsTrigger
           value="all"
-          className="flex items-center gap-1 px-2.5 sm:px-3"
+          className="hidden md:flex items-center gap-1 px-2.5 sm:px-3"
           asChild
         >
           <Link href="/">All</Link>

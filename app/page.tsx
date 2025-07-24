@@ -1,5 +1,8 @@
+import { Attribution } from '@/components/attribution';
+import { CriticalAlertBanner } from '@/components/critical-alert-banner';
+import { DataLegend } from '@/components/data-legend';
+import { FAQ } from '@/components/faq';
 import { StatusFilter } from '@/components/status-filter';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { WaterLevelChart } from '@/components/water-level-chart';
 import { getWaterLevelData } from '@/services/pagasa';
 import { WaterLevelType } from '@/services/types';
@@ -21,20 +24,35 @@ export default async function Home({
       )
     : waterLevelData;
 
+  const criticalItems = waterLevelData.filter((d) => d.status === 'critical');
+
   return (
     <>
+      <CriticalAlertBanner data={criticalItems} />
       <header className="border-b">
-        <div className="container mx-auto max-w-xl px-4 py-4">
-          <div className="flex flex-col w-full items-center">
+        <div className="container mx-auto flex items-center max-w-xl px-4 py-4">
+          <div className="flex gap-2 items-center">
             <Image
               unoptimized
               src="/icons/logo.png"
               alt="FloodLine PH"
-              width={80}
+              width={70}
               height={10}
               className="object-contain"
             />
-            <h1 className="font-bold text-2xl">FloodLine PH</h1>
+            <h1 className="font-bold text-xl">FloodLine PH</h1>
+          </div>
+          <div className="ml-auto flex items-center gap-4">
+            <a href="#faq" className="text-sm font-semibold hover:underline">
+              FAQ
+            </a>
+            <a
+              href="https://github.com/engrjeff/floodline-ph"
+              target="_blank"
+              className="text-sm font-semibold hover:underline"
+            >
+              Source
+            </a>
           </div>
         </div>
       </header>
@@ -43,8 +61,9 @@ export default async function Home({
           Visual representation of PAGASA&apos;s water level data for major dams
           and rivers in the Philippines.
         </p>
-
+        <DataLegend />
         <StatusFilter
+          key={(queryParams.status as string) ?? 'key'}
           currentStatusFilter={queryParams.status as WaterLevelType['status']}
           waterLevelData={waterLevelData}
         />
@@ -55,58 +74,11 @@ export default async function Home({
             </li>
           ))}
         </ul>
-
-        {/* legend */}
-        <Card className="fixed py-2 top-24 gap-2 right-2 w-40 hidden md:flex">
-          <CardHeader className="border-b px-3 [.border-b]:pb-2">
-            <CardTitle className="text-sm">Legend</CardTitle>
-          </CardHeader>
-          <CardContent className="px-3">
-            <ul className="space-y-2 text-sm">
-              <li className="flex items-center gap-2">
-                <span className="inline-block size-3 rounded-full bg-green-500" />
-                Normal
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="inline-block size-3 rounded-full bg-amber-500" />
-                Alert
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="inline-block size-3 rounded-full bg-red-500" />
-                Alarm
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="inline-block size-3 rounded-full bg-purple-500" />
-                Critical
-              </li>
-            </ul>
-          </CardContent>
-        </Card>
       </main>
       <footer className="border-t">
-        <div className="container mx-auto max-w-xl px-4 py-8 text-center text-muted-foreground text-sm">
-          <p>
-            Made by{' '}
-            <a
-              href="https://jeffsegovia.dev"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold text-blue-500"
-            >
-              Jeff Segovia
-            </a>
-          </p>
-          <p>
-            Data Source:{' '}
-            <a
-              href="https://pasig-marikina-tullahanffws.pagasa.dost.gov.ph/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-500 underline hover:no-underline font-semibold"
-            >
-              PAGASA
-            </a>
-          </p>
+        <div className="container mx-auto max-w-xl px-4 py-8 text-muted-foreground text-sm">
+          <FAQ />
+          <Attribution />
         </div>
       </footer>
     </>

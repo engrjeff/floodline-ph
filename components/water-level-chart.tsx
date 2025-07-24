@@ -196,7 +196,6 @@ export function WaterLevelChart({
               <LabelList
                 position="top"
                 offset={12}
-                className="text-black"
                 fontSize={10}
                 formatter={(value: number) => `${value.toFixed(1)}m`}
               />
