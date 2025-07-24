@@ -41,8 +41,8 @@ export default async function Home({
         <div className="text-center">
           <h1 className="font-bold text-2xl">FloodLine PH</h1>
           <p className="text-sm text-muted-foreground">
-            Visual representation of PAGASA's water level data for major dams
-            and rivers in the Philippines.
+            Visual representation of PAGASA&apos;s water level data for major
+            dams and rivers in the Philippines.
           </p>
         </div>
 

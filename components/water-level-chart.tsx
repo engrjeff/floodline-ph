@@ -168,7 +168,7 @@ export function WaterLevelChart({
                 <ChartTooltipContent
                   indicator="line"
                   hideLabel
-                  formatter={(value, name, item) => (
+                  formatter={(value, name) => (
                     <div className="flex items-center gap-2">
                       <WavesIcon className="size-3 text-blue-500" />
                       {chartConfig[name as keyof typeof chartConfig]?.label ||
