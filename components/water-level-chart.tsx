@@ -55,6 +55,21 @@ function getStatusClasses(status: WaterLevelType['status']) {
   }
 }
 
+function getStatusLabelClasses(status: WaterLevelType['status']) {
+  switch (status) {
+    case 'normal':
+      return 'text-green-500';
+    case 'alert':
+      return 'text-amber-500';
+    case 'alarm':
+      return 'text-orange-500';
+    case 'critical':
+      return 'text-red-500';
+    default:
+      return 'text-green-500';
+  }
+}
+
 export function WaterLevelChart({
   waterLevelData,
 }: {
@@ -64,15 +79,15 @@ export function WaterLevelChart({
 
   const chartData = [
     {
-      dataAt: '2 hrs ago',
+      dataAt: '2hrs ago',
       waterLevel: waterLevelData.waterLevel2hrAgo,
     },
     {
-      dataAt: '1 hr ago',
+      dataAt: '1hr ago',
       waterLevel: waterLevelData.waterLevel1hrAgo,
     },
     {
-      dataAt: '30 min ago',
+      dataAt: '30m ago',
       waterLevel: waterLevelData.waterLevel30minAgo,
     },
     {
@@ -88,7 +103,7 @@ export function WaterLevelChart({
     waterLevelData.waterLevel2hrAgo,
   ];
 
-  const padding = 0.02;
+  const padding = 0.1;
 
   const minY = Math.min(...yValues) - padding;
   const maxY = !warningLinesVisible
@@ -100,8 +115,20 @@ export function WaterLevelChart({
   return (
     <Card>
       <CardHeader className="relative border-b">
-        <CardTitle>{waterLevelData.name}</CardTitle>
-        <CardDescription>Real-time water level data</CardDescription>
+        <CardTitle>
+          <h2>{waterLevelData.name}</h2>
+        </CardTitle>
+        <CardDescription>
+          Real-time water level data @{' '}
+          <span
+            className={cn(
+              'font-semibold',
+              getStatusLabelClasses(waterLevelData.status)
+            )}
+          >
+            {waterLevelData.currentWaterLevel}m
+          </span>
+        </CardDescription>
         <div className="absolute top-0 right-3">
           <span
             className={cn(
@@ -141,7 +168,7 @@ export function WaterLevelChart({
             accessibilityLayer
             data={chartData}
             margin={{
-              left: -10,
+              left: 0,
               right: 20,
             }}
           >
@@ -157,7 +184,7 @@ export function WaterLevelChart({
               axisLine={false}
               tickMargin={8}
               tickCount={5}
-              tickFormatter={(value) => value.toFixed(1) + 'm'}
+              tickFormatter={(value) => value.toFixed(2) + 'm'}
               domain={[minY, maxY]}
               //   domain={[ticks[0], ticks[ticks.length - 1]]}
             />
@@ -195,9 +222,9 @@ export function WaterLevelChart({
             >
               <LabelList
                 position="top"
-                offset={12}
+                offset={10}
                 fontSize={10}
-                formatter={(value: number) => `${value.toFixed(1)}m`}
+                formatter={(value: number) => `${value.toFixed(2)}m`}
               />
             </Area>
             {/* <ReferenceLine

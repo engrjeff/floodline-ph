@@ -1,3 +1,8 @@
+import { Attribution } from '@/components/attribution';
+import { FAQ } from '@/components/faq';
+import { Header } from '@/components/header';
+import { ScrollToTopButton } from '@/components/scroll-to-top';
+import { site } from '@/config/site';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
@@ -13,15 +18,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'FloodLine PH',
-  description:
-    "Visual representation of PAGASA's water level data for major dams and rivers in the Philippines.",
+  title: site.title,
+  description: site.description,
   openGraph: {
-    title: 'FloodLine PH',
+    title: site.title,
     images: [
       {
-        url: 'https://res.cloudinary.com/abide-in-the-vine/image/upload/v1753334395/floodline-ph-og_e2z38c.png',
-        alt: 'FloodLine PH',
+        url: site.ogImageUrl,
+        alt: site.title,
         width: 1200,
         height: 630,
       },
@@ -39,7 +43,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Header />
         {children}
+        <footer className="border-t">
+          <div className="container mx-auto max-w-xl px-4 py-8 text-muted-foreground text-sm">
+            <FAQ />
+            <Attribution />
+          </div>
+        </footer>
+        <ScrollToTopButton />
       </body>
     </html>
   );

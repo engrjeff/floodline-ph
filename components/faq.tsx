@@ -18,7 +18,7 @@ const FAQ_ITEMS = [
   {
     title: 'Is it open-source?',
     contents: [
-      'Yes. You can find the source code in the header section of this page.',
+      'Yes. You can find the source code link in the header section of this page.',
     ],
   },
   {
@@ -31,7 +31,7 @@ export function FAQ() {
   return (
     <div id="faq">
       <Link href={{ pathname: '/', hash: 'faq' }}>
-        <h2 className="text-foreground font-semibold">
+        <h2 className="text-foreground text-xl font-semibold">
           Frequently Asked Questions (FAQs)
         </h2>
       </Link>

@@ -1,12 +1,10 @@
-import { Attribution } from '@/components/attribution';
 import { CriticalAlertBanner } from '@/components/critical-alert-banner';
 import { DataLegend } from '@/components/data-legend';
-import { FAQ } from '@/components/faq';
 import { StatusFilter } from '@/components/status-filter';
 import { WaterLevelChart } from '@/components/water-level-chart';
+import { site } from '@/config/site';
 import { getWaterLevelData } from '@/services/pagasa';
 import { WaterLevelType } from '@/services/types';
-import Image from 'next/image';
 
 export default async function Home({
   searchParams,
@@ -29,38 +27,8 @@ export default async function Home({
   return (
     <>
       <CriticalAlertBanner data={criticalItems} />
-      <header className="border-b">
-        <div className="container mx-auto flex items-center max-w-xl px-4 py-4">
-          <div className="flex gap-2 items-center">
-            <Image
-              unoptimized
-              src="/icons/logo.png"
-              alt="FloodLine PH"
-              width={70}
-              height={10}
-              className="object-contain"
-            />
-            <h1 className="font-bold text-xl">FloodLine PH</h1>
-          </div>
-          <div className="ml-auto flex items-center gap-4">
-            <a href="#faq" className="text-sm font-semibold hover:underline">
-              FAQ
-            </a>
-            <a
-              href="https://github.com/engrjeff/floodline-ph"
-              target="_blank"
-              className="text-sm font-semibold hover:underline"
-            >
-              Source
-            </a>
-          </div>
-        </div>
-      </header>
       <main className="container mx-auto max-w-xl px-4 py-6 space-y-6">
-        <p className="text-muted-foreground">
-          Visual representation of PAGASA&apos;s water level data for major dams
-          and rivers in the Philippines.
-        </p>
+        <p className="text-muted-foreground">{site.description}</p>
         <DataLegend />
         <StatusFilter
           key={(queryParams.status as string) ?? 'key'}
@@ -75,12 +43,6 @@ export default async function Home({
           ))}
         </ul>
       </main>
-      <footer className="border-t">
-        <div className="container mx-auto max-w-xl px-4 py-8 text-muted-foreground text-sm">
-          <FAQ />
-          <Attribution />
-        </div>
-      </footer>
     </>
   );
 }

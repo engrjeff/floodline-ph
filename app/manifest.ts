@@ -1,11 +1,11 @@
+import { site } from '@/config/site';
 import type { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'FloodLine PH',
-    short_name: 'FloodLine PH',
-    description:
-      "Visual representation of PAGASA's water level data for major dams and rivers in the Philippines.",
+    name: site.title,
+    short_name: site.title,
+    description: site.description,
     start_url: '/',
     scope: '/',
     id: '/',
