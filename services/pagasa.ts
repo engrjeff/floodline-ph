@@ -1,24 +1,44 @@
+import { format, toZonedTime } from 'date-fns-tz';
 import { API_ENDPOINTS, apiClient } from './api-client';
 import { WaterLevelRawType, WaterLevelType } from './types';
 
-function getCurrentDateTime() {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, '0');
-  const day = String(now.getDate()).padStart(2, '0');
-  const hour = String(now.getHours()).padStart(2, '0');
-  const minute = String(now.getMinutes()).padStart(2, '0');
+// const timeInPH = () => {
+//   const timeZone = 'Asia/Manila'; // PH Timezone
+//   const date = new Date(); // or any UTC date
+//   const zonedDate = toZonedTime(date, timeZone);
 
-  return [year, month, day, hour, minute].join('');
+//   return format(zonedDate, 'yyyyMMddHHmm', { timeZone });
+// };
+
+function getCurrentDateTime() {
+  // const now = new Date();
+  // const year = now.getFullYear();
+  // const month = String(now.getMonth() + 1).padStart(2, '0');
+  // const day = String(now.getDate()).padStart(2, '0');
+  // const hour = String(now.getHours()).padStart(2, '0');
+  // const minute = String(now.getMinutes()).padStart(2, '0');
+
+  // return [year, month, day, hour, minute].join('');
+  const timeZone = 'Asia/Manila'; // PH Timezone
+  const date = new Date(); // or any UTC date
+  const zonedDate = toZonedTime(date, timeZone);
+
+  return format(zonedDate, 'yyyyMMddHHmm', { timeZone });
 }
 
 function getCurrentFormattedTime() {
-  const now = new Date();
-  return now.toLocaleTimeString('en-US', {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: true,
-  });
+  // const now = new Date();
+  // return now.toLocaleString('en-US', {
+  //   hour: '2-digit',
+  //   minute: '2-digit',
+  //   hour12: true,
+  //   timeZone: 'Asia/Manila',
+  // });
+  const timeZone = 'Asia/Manila'; // PH Timezone
+  const date = new Date(); // or any UTC date
+  const zonedDate = toZonedTime(date, timeZone);
+
+  return format(zonedDate, 'hh:mm aa', { timeZone });
 }
 
 function cleanValue(value: string) {
